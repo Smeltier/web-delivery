@@ -15,6 +15,7 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+.settings/
 
 # Compiled class file
 *.class
@@ -46,3 +47,7 @@ target/
 .vscode/
 
 .env
+
+*.iml/
+
+.idea/
