@@ -1,8 +1,6 @@
 package br.com.delivery.domain.restaurant;
 
-// TODO: implementar classe monetária.
-
-import java.util.Objects;
+import br.com.delivery.domain.exception.InvalidMenuItemException;
 
 final class MenuItem {
     private final MenuItemId id;
@@ -12,8 +10,13 @@ final class MenuItem {
     private boolean active;
 
     MenuItem(MenuItemId id, String name, String description, MenuItemCategory category) {
-        this.id = Objects.requireNonNull(id, "Menu Item id cannot be null");
+        if (id == null) {
+            throw new InvalidMenuItemException("Menu Item ID cannot be null");
+        }
+        this.id = id;
+
         this.active = true;
+
         changeName(name);
         changeDescription(description);
         changeCategory(category);
@@ -28,11 +31,10 @@ final class MenuItem {
     }
 
     void changeName(String name) {
-        this.name = Objects.requireNonNull(name, "Menu Item name cannot be null");
-
-        if (name.isBlank()) {
-            throw new IllegalArgumentException("Menu Item name cannot be blank");
+        if (name == null || name.isBlank()) {
+            throw new InvalidMenuItemException("Menu Item name cannot be null or blank");
         }
+        this.name = name;
     }
 
     String getDescription() {
@@ -40,11 +42,10 @@ final class MenuItem {
     }
 
     void changeDescription(String description) {
-        this.description = Objects.requireNonNull(description, "Menu Item description cannot be null");
-
-        if (description.isBlank()) {
-            throw new IllegalArgumentException("Menu Item description cannot be blank");
+        if (description == null || description.isBlank()) {
+            throw new InvalidMenuItemException("Menu Item description cannot be null or blank");
         }
+        this.description = description;
     }
 
     MenuItemCategory getCategory() {
@@ -52,7 +53,10 @@ final class MenuItem {
     }
 
     void changeCategory(MenuItemCategory category) {
-        this.category = Objects.requireNonNull(category, "MenuItem Category cannot be null");
+        if (category == null) {
+            throw new InvalidMenuItemException("Menu item category cannot be null");
+        }
+        this.category = category;
     }
 
     boolean isActive() {
