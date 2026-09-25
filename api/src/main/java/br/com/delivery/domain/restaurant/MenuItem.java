@@ -22,14 +22,6 @@ final class MenuItem {
         changeCategory(category);
     }
 
-    MenuItemId getId() {
-        return this.id;
-    }
-
-    String getName() {
-        return this.name;
-    }
-
     void changeName(String name) {
         if (name == null || name.isBlank()) {
             throw new InvalidMenuItemException("Menu Item name cannot be null or blank");
@@ -37,19 +29,11 @@ final class MenuItem {
         this.name = name;
     }
 
-    String getDescription() {
-        return description;
-    }
-
     void changeDescription(String description) {
         if (description == null || description.isBlank()) {
             throw new InvalidMenuItemException("Menu Item description cannot be null or blank");
         }
         this.description = description;
-    }
-
-    MenuItemCategory getCategory() {
-        return this.category;
     }
 
     void changeCategory(MenuItemCategory category) {
@@ -69,6 +53,22 @@ final class MenuItem {
 
     void deactivate() {
         this.active = false;
+    }
+
+    MenuItemId getId() {
+        return this.id;
+    }
+
+    String getName() {
+        return this.name;
+    }
+
+    String getDescription() {
+        return description;
+    }
+
+    MenuItemCategory getCategory() {
+        return this.category;
     }
 
     @Override
