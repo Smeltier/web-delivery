@@ -1,5 +1,7 @@
 package br.com.delivery.domain.restaurant;
 
+import br.com.delivery.domain.exception.InvalidMenuItemException;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,37 +22,37 @@ public class MenuItemTest {
 
     @Test
     void shouldThrowWhenIdIsNull() {
-        assertThrows(NullPointerException.class,
+        assertThrows(InvalidMenuItemException.class,
                 () -> new MenuItem(null, NAME, DESCRIPTION, CATEGORY));
     }
 
     @Test
     void shouldThrowWhenNameIsNull() {
-        assertThrows(NullPointerException.class,
+        assertThrows(InvalidMenuItemException.class,
                 () -> new MenuItem(ID, null, DESCRIPTION, CATEGORY));
     }
 
     @Test
     void shouldThrowWhenNameIsBlank() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(InvalidMenuItemException.class,
                 () -> new MenuItem(ID, "", DESCRIPTION, CATEGORY));
     }
 
     @Test
     void shouldThrowWhenDescriptionIsNull() {
-        assertThrows(NullPointerException.class,
+        assertThrows(InvalidMenuItemException.class,
                 () -> new MenuItem(ID, NAME, null, CATEGORY));
     }
 
     @Test
     void shouldThrowWhenDescriptionIsBlank() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(InvalidMenuItemException.class,
                 () -> new MenuItem(ID, NAME, "", CATEGORY));
     }
 
     @Test
     void shouldThrowWhenCategoryIsNull() {
-        assertThrows(NullPointerException.class,
+        assertThrows(InvalidMenuItemException.class,
                 () -> new MenuItem(ID, NAME, DESCRIPTION, null));
     }
 
