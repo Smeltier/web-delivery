@@ -1,5 +1,6 @@
 package br.com.delivery.domain.restaurant;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +91,21 @@ public final class Restaurant {
         this.name = name;
     }
 
+    public boolean isAcceptingOrders() {
+        return this.status == RestaurantStatus.OPEN && businessHours.isWithin(LocalTime.now());
+    }
+
     public void open() {
+        if (!businessHours.isWithin(LocalTime.now())) {
+            throw new InvalidRestaurantException("Cannot open outside of business hour");
+        }
+
+        this.status = RestaurantStatus.OPEN;
+    }
+
+    // TODO adicionar lógica de poder fechar o restaurant temporariamente.
+    public void close() {
+        this.status = RestaurantStatus.CLOSED;
     }
 
     public boolean isOpen() {
