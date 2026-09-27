@@ -29,11 +29,6 @@ public final class Restaurant {
 
     public MenuItemId addMenuItem(String name, String description, MenuItemCategory category) {
         MenuItem item = new MenuItem(MenuItemId.generate(), name, description, category);
-
-        if (this.menuItems.contains(item)) {
-            throw new InvalidRestaurantException("Restaurant cannot have two equal items");
-        }
-
         this.menuItems.add(item);
         return item.getId();
     }
