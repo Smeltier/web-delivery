@@ -13,7 +13,7 @@ public final class Restaurant {
     private BusinessHours businessHours;
     private RestaurantStatus status;
 
-    public Restaurant(RestaurantId id, String name, String description, BusinessHours businessHours) {
+    private Restaurant(RestaurantId id, String name, String description, BusinessHours businessHours) {
         if (id == null) {
             throw new InvalidRestaurantException("Restaurant id cannot be null");
         }
@@ -26,6 +26,13 @@ public final class Restaurant {
         changeDescription(description);
         changeBusinessHours(businessHours);
     }
+
+    public Restaurant create(String name, String description, BusinessHours businessHours) {
+        return new Restaurant(RestaurantId.generate(), name, description, businessHours);
+    }
+
+    // public Restaurant restore() {
+    // }
 
     public MenuItemId addMenuItem(String name, String description, MenuItemCategory category) {
         if (status == RestaurantStatus.OPEN) {
