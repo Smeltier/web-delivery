@@ -28,6 +28,10 @@ public final class Restaurant {
     }
 
     public MenuItemId addMenuItem(String name, String description, MenuItemCategory category) {
+        if (status == RestaurantStatus.OPEN) {
+            throw new InvalidRestaurantException("Cannot add new Menu Item while open");
+        }
+
         MenuItem item = new MenuItem(MenuItemId.generate(), name, description, category);
         this.menuItems.add(item);
         return item.getId();
@@ -49,6 +53,10 @@ public final class Restaurant {
     public void removeMenuItem(MenuItemId menuItemId) {
         if (menuItemId == null) {
             throw new InvalidRestaurantException("Menu item id cannot be null");
+        }
+
+        if (status == RestaurantStatus.OPEN) {
+            throw new InvalidRestaurantException("Cannot remove new Menu Item while open");
         }
 
         this.menuItems.removeIf(item -> item.getId().equals(menuItemId));
@@ -75,6 +83,17 @@ public final class Restaurant {
         this.name = name;
     }
 
+    public void open() {
+    }
+
+    public boolean isOpen() {
+        return this.status == RestaurantStatus.OPEN;
+    }
+
+    public boolean isClosed() {
+        return !this.isOpen();
+    }
+
     public RestaurantId getId() {
         return this.id;
     }
@@ -85,5 +104,9 @@ public final class Restaurant {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public BusinessHours getBusinessHours() {
+        return this.businessHours;
     }
 }
