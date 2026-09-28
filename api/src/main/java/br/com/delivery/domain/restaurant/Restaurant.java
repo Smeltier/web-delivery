@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.delivery.domain.exception.InvalidRestaurantException;
+import br.com.delivery.domain.shared.Address;
 
 public final class Restaurant {
     private final RestaurantId id;
@@ -13,8 +14,9 @@ public final class Restaurant {
     private String description;
     private BusinessHours businessHours;
     private RestaurantStatus status;
+    private Address address;
 
-    private Restaurant(RestaurantId id, String name, String description, BusinessHours businessHours) {
+    private Restaurant(RestaurantId id, String name, String description, BusinessHours businessHours, Address address) {
         if (id == null) {
             throw new InvalidRestaurantException("Restaurant id cannot be null");
         }
@@ -26,10 +28,11 @@ public final class Restaurant {
         changeName(name);
         changeDescription(description);
         changeBusinessHours(businessHours);
+        changeAddress(address);
     }
 
-    public Restaurant create(String name, String description, BusinessHours businessHours) {
-        return new Restaurant(RestaurantId.generate(), name, description, businessHours);
+    public Restaurant create(String name, String description, BusinessHours businessHours, Address address) {
+        return new Restaurant(RestaurantId.generate(), name, description, businessHours, address);
     }
 
     // public Restaurant restore() {
@@ -84,6 +87,13 @@ public final class Restaurant {
         this.businessHours = businessHours;
     }
 
+    public void changeAddress(Address address) {
+        if (address == null) {
+            throw new InvalidRestaurantException("Business Hours cannot be null");
+        }
+        this.address = address;
+    }
+
     public void changeName(String name) {
         if (name == null || name.isBlank()) {
             throw new InvalidRestaurantException("Restaurant name cannot be null or blank");
@@ -130,5 +140,9 @@ public final class Restaurant {
 
     public BusinessHours getBusinessHours() {
         return this.businessHours;
+    }
+
+    public Address getAddress() {
+        return this.address;
     }
 }
