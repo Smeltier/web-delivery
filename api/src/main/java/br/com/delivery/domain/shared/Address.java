@@ -4,8 +4,8 @@ import br.com.delivery.domain.exception.InvalidAddressException;;
 
 public record Address(
     String country,
-    String city,
     String state,
+    String city,
     String street,
     String complement,
     int number,
@@ -26,6 +26,10 @@ public record Address(
 
         if (street == null || street.isBlank()) {
             throw new InvalidAddressException("Street name cannot be null or blank");
+        }
+
+        if (complement != null && complement.isBlank()) {
+            throw new InvalidAddressException("Complement cannot be blank");
         }
 
         if (number <= 0) {
